@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  mysql:
+    container_name: mysql
+    ports:
+      - 3306:3306
+  ina-adm-regions:
+    container_name: ina-adm-regions
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
