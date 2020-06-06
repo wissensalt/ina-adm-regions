@@ -2,12 +2,28 @@ version: "3.7"
 
 services:
   mysql:
-    container_name: mysql
+    image: mysql:8
+    container_name: mysql-ina-adm-regions
+    env_file:
+      - database.env
     ports:
-      - 3306:3306
+      - "3306:3306"
+    restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - net
   ina-adm-regions:
     container_name: ina-adm-regions
+    image: golang:latest
     ports:
       - 8080:8080
+    command: go run /app/main.go
     depends_on:
       - mysql
+    networks:
+      - net
+volumes:
+  mysql_data:
+networks:
+  net:
