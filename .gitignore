@@ -1,1 +1,6 @@
 .idea/
+migration/repository/
+.DS_Store
+migration/src/main/resources/db/.DS_Store
+migration/src/main/resources/db/migration/.DS_Store
+

@@ -13,14 +13,14 @@ run_mysql_and_service_without_migration() {
 run_migration_info() {
     echo "Starting migration info"
     cd migration
-    docker run --network ina-adm-regions_net --rm -v "$(pwd)":/opt/maven -w /opt/maven maven:3.6-openjdk-8 mvn flyway:info
+    docker run --name ina-adm-regions-migrate --network ina-adm-regions_net --rm -v "$(pwd)":/opt/maven -v "$HOME"/.m2:/root/.m2 -w /opt/maven maven:3.6-openjdk-8 mvn flyway:info
     echo "Finished migration"
 }
 
 run_migration_migrate() {
     echo "Starting migration migrate"
     cd migration
-    docker run --network ina-adm-regions_net --rm -v "$(pwd)":/opt/maven -w /opt/maven maven:3.6-openjdk-8 mvn flyway:migrate
+    docker run --name ina-adm-regions-migrate --network ina-adm-regions_net --rm -v "$PWD":/opt/maven -v "$HOME"/.m2:/root/.m2 -w /opt/maven maven:3.6-openjdk-8 mvn flyway:migrate
     echo "Finished migration"
 }
 
