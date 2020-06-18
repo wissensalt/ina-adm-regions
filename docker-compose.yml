@@ -15,8 +15,8 @@ services:
       - net
   ina-adm-regions:
     build: .
-#    image: ina-adm-regions-app
-    container_name: ina-adm-regions
+    image: knightdocker/api-ina-adm-regions
+    container_name: api-ina-adm-regions
     ports:
       - 8080:8080
     depends_on:

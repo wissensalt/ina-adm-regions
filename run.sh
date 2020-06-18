@@ -16,8 +16,8 @@ run_migration_up() {
     ls
     cd ../
     read -p "Version : " version
-    docker run -v "$PWD"/migrations:/migrations --network ina-adm-regions_net migrate/migrate -path=/migrations/ -database "mysql://root:password@tcp(mysql:3306)/test_db" up $version
-    echo "Finished migration version : "$version
+    docker run -v "$PWD"/migrations:/migrations --network ina-adm-regions_net migrate/migrate -path=/migrations/ -database "mysql://"${MYSQL_USER}":"${MYSQL_PASSWORD}"@tcp(mysql:3306)/test_db" up ${version}
+    echo "Finished migration version : "${version}
 }
 
 run_migration_down() {
@@ -26,14 +26,16 @@ run_migration_down() {
     ls
     cd ../
     read -p "Version : " version
-    docker run -v "$PWD"/migrations:/migrations --network ina-adm-regions_net migrate/migrate -path=/migrations/ -database "mysql://root:password@tcp(mysql:3306)/test_db" down $version
-    echo "Finished Rollback migration version : "$version
+    docker run -v "$PWD"/migrations:/migrations --network ina-adm-regions_net migrate/migrate -path=/migrations/ -database "mysql://"${MYSQL_USER}":"${MYSQL_PASSWORD}"@tcp(mysql:3306)/test_db" down ${version}
+    echo "Finished Rollback migration version : "${version}
 }
 
 run_download_dependencies() {
     go mod init ${PWD}
     go mod download
 }
+
+source ./database.env
 
 echo "\n===============Indonesia Administrative Regions===============\n"
 
