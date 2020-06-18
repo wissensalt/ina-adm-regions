@@ -14,11 +14,11 @@ services:
     networks:
       - net
   ina-adm-regions:
+    build: .
+#    image: ina-adm-regions-app
     container_name: ina-adm-regions
-    image: golang:latest
     ports:
       - 8080:8080
-    command: go run /app/main.go
     depends_on:
       - mysql
     networks:
